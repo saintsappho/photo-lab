@@ -1,7 +1,7 @@
 import React from 'react';
-import PhotoList from 'components/PhotoList';
-import PhotoListItem from './components/PhotoListItem';
+
 import './App.scss';
+import HomeRoute from 'routes/HomeRoute';
 
 
 
@@ -10,7 +10,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <PhotoList />
+      <HomeRoute />
     </div>
   );
 };

@@ -12,7 +12,6 @@ const PhotoListItem = (props) => {
 
   const toggleFav = () => {
     setFavourited((prev) => !prev);
-    console.log("favourited: ", favourited)
   }
 
   return (
@@ -22,7 +21,7 @@ const PhotoListItem = (props) => {
       <div className="photo-list__user-details">
         <img className="photo-list__user-profile" key={username + id} src={profile} alt={`${username}'s profile`} />
         <div className="photo-list__user-info">
-          <div className="">{username}</div>
+          <div className="">{user.name}</div> {/* this can also be username*/}
           <div className="photo-list__user-location"> {city}, {country}</div>
         </div>
       </div>
