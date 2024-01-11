@@ -4,11 +4,12 @@ import '../styles/TopNavigationBar.scss'
 import FavIcon from './FavIcon';
 import TopicList from './TopicList';
 
-const TopNavigationBar = () => {
+const TopNavigationBar = (props) => {
+  const { topics } = props 
   return (
     <div className="top-nav-bar">
       <span className="top-nav-bar__logo">PhotoLabs</span>
-      <TopicList />
+      <TopicList topics={topics}/>
       <span className='top-nav-bar__faves' onClick={""} ><FavIcon selected={true}/></span>
     </div>
   )
