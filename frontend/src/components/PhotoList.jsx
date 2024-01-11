@@ -1,4 +1,5 @@
 import React from "react";
+import PhotoListItem from "./PhotoListItem";
 
 import "../styles/PhotoList.scss";
 
@@ -56,10 +57,27 @@ const sampleDataForPhotoList = [
   },
 ];
 
+const sampleDataForPhotoListItem = {
+  id: "1",
+  location: {
+    city: "Montreal",
+    country: "Canada",
+  },
+  imageSource: `${process.env.PUBLIC_URL}/Image-1-Regular.jpeg`,
+  username: "Joe Example",
+  profile: `${process.env.PUBLIC_URL}/profile-1.jpg`,
+}
+;
+
 const PhotoList = () => {
+  const list = []
+  for (let image of sampleDataForPhotoList){
+    list.push(<li><PhotoListItem sampleDataForPhotoListItem={sampleDataForPhotoListItem}/></li>)
+  }
+  console.log("list: ", list)
   return (
     <ul className="photo-list">
-      {/* Insert React */}
+      {list}
     </ul>
   );
 };
