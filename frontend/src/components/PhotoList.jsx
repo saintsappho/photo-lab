@@ -57,29 +57,21 @@ const sampleDataForPhotoList = [
   },
 ];
 
-const sampleDataForPhotoListItem = {
-  id: "1",
-  location: {
-    city: "Montreal",
-    country: "Canada",
-  },
-  imageSource: `${process.env.PUBLIC_URL}/Image-1-Regular.jpeg`,
-  username: "Joe Example",
-  profile: `${process.env.PUBLIC_URL}/profile-1.jpg`,
-}
-;
 
 const PhotoList = () => {
   const list = []
   for (let image of sampleDataForPhotoList){
-    list.push(<li><PhotoListItem sampleDataForPhotoListItem={sampleDataForPhotoListItem}/></li>)
+    list.push(<li><PhotoListItem key={image.id} sampleDataForPhotoList={image}/></li>)
   }
   console.log("list: ", list)
   return (
-    <ul className="photo-list">
-      {list}
-    </ul>
+    <>
+      <ul className="photo-list">
+        {list}
+      </ul>
+    </>
   );
+    
 };
 
 export default PhotoList;
