@@ -5,8 +5,8 @@ import '../styles/PhotoFavButton.scss';
 
 
 function PhotoFavButton(props) {
-  const { id, onToggleFavourite, isFav, favFunctions, favesArray} = props;
-  const {addFave, removeFave} = favFunctions
+  const { id, onToggleFavourite, isFav, favHandlers, favesArray} = props;
+  const {addFave, removeFave} = favHandlers
   const handleClick = (event) => {
     onToggleFavourite();
     isFav ? removeFave(id) : addFave(id);

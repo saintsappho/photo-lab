@@ -16,12 +16,12 @@ const HomeRoute = (props) => {
   const removeFave = (rmId) => {
     setFavesArray(favesArray.filter(item => item !== rmId));
   };
-  const favFunctions = { addFave, removeFave }
+  const favHandlers = { addFave, removeFave }
 
   return (
     <div className="home-route">
       <TopNavigationBar topics={topics}/>
-      <PhotoList photos={photos} favFunctions={favFunctions} favesArray={favesArray}/>
+      <PhotoList photos={photos} favHandlers={favHandlers} favesArray={favesArray}/>
     </div>
   );
 };
