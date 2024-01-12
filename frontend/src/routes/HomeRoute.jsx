@@ -12,16 +12,21 @@ const HomeRoute = (props) => {
   // Function to add a favorite
   const addFave = (newFave) => {
     setFavesArray([...favesArray, newFave]);
+    alert(`Photo ${newFave} has been added to favorites!`);
   };
   const removeFave = (rmId) => {
     setFavesArray(favesArray.filter(item => item !== rmId));
+    alert(`Photo ${rmId} is no longer in your favorites.`);
   };
-  const favHandlers = { addFave, removeFave }
-
+  const clearNotification = () => {
+    
+  }
+  const favHandlers = { addFave, removeFave, clearNotification }
+  const faves = {favesArray, favHandlers}
   return (
     <div className="home-route">
-      <TopNavigationBar topics={topics}/>
-      <PhotoList photos={photos} favHandlers={favHandlers} favesArray={favesArray}/>
+      <TopNavigationBar topics={topics} faves={faves} />
+      <PhotoList photos={photos} faves={faves}/>
     </div>
   );
 };
