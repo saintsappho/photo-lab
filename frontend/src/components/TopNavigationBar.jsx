@@ -10,7 +10,7 @@ const TopNavigationBar = (props) => {
     <div className="top-nav-bar">
       <span className="top-nav-bar__logo">PhotoLabs</span>
       <TopicList topics={topics}/>
-      <span className='top-nav-bar__faves' onClick={""} ><FavIcon selected={true}/></span>
+      <span className='top-nav-bar__faves'><FavIcon selected={true}/></span>
     </div>
   )
 }

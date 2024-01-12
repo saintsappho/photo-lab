@@ -3,12 +3,14 @@ import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
 const PhotoListItem = (props) => {
-  const { urls, user, id, location } = props.photos;
+  const { photos, favFunctions, favesArray } = props
+  const { urls, user, id, location } = photos;
   const { city, country } = location;
   const { regular } = urls;
   const { profile, username } = user;
 
   const [favourited, setFavourited] = useState(false);
+  
 
   const toggleFav = () => {
     setFavourited((prev) => !prev);
@@ -16,7 +18,7 @@ const PhotoListItem = (props) => {
 
   return (
     <article className="photo-list__item" key={"photo" + id}>
-      <PhotoFavButton onToggleFavourite={toggleFav} isFav={favourited} id={id} />
+      <PhotoFavButton favFunctions={favFunctions} favesArray={favesArray} onToggleFavourite={toggleFav} isFav={favourited} id={id} />
       <img className="photo-list__image" src={regular} alt={`Photo ${id}: Location ${city}, ${country}`} />
       <div className="photo-list__user-details">
         <img className="photo-list__user-profile" key={username + id} src={profile} alt={`${username}'s profile`} />
