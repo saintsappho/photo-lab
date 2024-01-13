@@ -7,17 +7,13 @@ import PhotoList from 'components/PhotoList';
 
 const PhotoDetailsModal = (props) => {
   const { allPhotos, modality, faves } = props;
-  const { modalToggle, isModalOpen, selectedPhoto } = modality;
+  const { modalToggle, selectedPhoto } = modality;
   const { urls, user, location } = selectedPhoto;
   const { city, country } = location;
   const { regular } = urls;
   const { profile, username } = user;
   const id = selectedPhoto;
-  const [ favourited, setFavourited ] = useState();
-  // set fave as state
-  const toggleFav = () => {
-    setFavourited((prev) => !prev);
-  }
+  
   let similar = allPhotos.filter(photo => photo.id !== selectedPhoto.id)
   similar = similar.filter(photo => (photo.location.city == selectedPhoto.location.city) || photo.user.name == selectedPhoto.user.name )
 
@@ -30,7 +26,7 @@ const PhotoDetailsModal = (props) => {
         </button>
 
         {/*the <3 button*/}
-        <PhotoFavButton faves={faves} toggleFav={toggleFav} isFav={favourited} id={Number(selectedPhoto.id)} />
+        <PhotoFavButton faves={faves} id={Number(selectedPhoto.id)} />
       </div>
 
       {/*the modal content*/}
