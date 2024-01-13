@@ -9,7 +9,7 @@ const PhotoListItem = (props) => {
   const { city, country } = location;
   const { regular } = urls;
   const { profile, username } = user;
-  const { isModalOpen, modalToggle } = modality
+  const { modalToggle } = modality
   const [ favourited, setFavourited ] = useState(false);
   // set fave as state
   const toggleFav = () => {
@@ -26,7 +26,7 @@ const PhotoListItem = (props) => {
           <div className="photo-list__user-location"> {city}, {country}</div>
         </div>
       </div>
-      {isModalOpen && <PhotoDetailsModal photos={photos} faves={faves} toggleFav={toggleFav} favourited={favourited} modality={modality}/>}
+      
     </article>
   );
 };

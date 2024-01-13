@@ -3,15 +3,18 @@ import React from 'react';
 import '../styles/PhotoDetailsModal.scss';
 import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoFavButton from '../components/PhotoFavButton';
+import PhotoList from 'components/PhotoList';
 
 const PhotoDetailsModal = (props) => {
-  const { photos, modality, faves, /*toggleFav,*/ favourited } = props;
+  const { allPhotos, modality, faves, toggleFav, favourited } = props;
   const { modalToggle, isModalOpen, selectedPhoto } = modality;
-  const { urls, user, location } = photos;
+  const { urls, user, location } = selectedPhoto;
   const { city, country } = location;
   const { regular } = urls;
   const { profile, username } = user;
   const id = selectedPhoto;
+  let similar = allPhotos.filter(photo => photo.id !== selectedPhoto.id)
+
   return (
     <div className="photo-details-modal">
       {/*the x button*/}
@@ -21,11 +24,10 @@ const PhotoDetailsModal = (props) => {
         </button>
 
         {/*the <3 button*/}
-        {/* <PhotoFavButton faves={faves} onToggleFavourite={toggleFav} isFav={favourited} id={id} /> */}
+        <PhotoFavButton faves={faves} toggleFav={() => toggleFav(id)} isFav={favourited} id={id} />
       </div>
 
-
-      {/*the modal panel*/}
+      {/*the modal content*/}
       <div className='photo-details-modal__header'>
         <div className="photo-details-modal__images">
           <img className="photo-details-modal__image" src={regular} alt={`Photo ${id}: Location ${city}, ${country}`} />
@@ -37,8 +39,9 @@ const PhotoDetailsModal = (props) => {
             <div className="photo-details-modal__photographer-location"> {city}, {country}</div>
           </div>
         </div>
-
       </div>
+      {/*heres where similar pics goes*/}
+      {!!allPhotos && <PhotoList photos={similar} faves={faves} modality={modality}/>}
     </div>
   );
 };
