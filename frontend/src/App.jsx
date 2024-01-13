@@ -30,11 +30,7 @@ const App = () => {
 /////                    faves                              /////
 /////////////////////////////////////////////////////////////////
   const [ favesArray, setFavesArray ] = useState([]);
-  const [ favourited, setFavourited ] = useState(false);
-  // set fave as state
-  const toggleFav = () => {
-    setFavourited((prev) => !prev);
-  }
+ 
   // Functions to add/remove favorites in an array
   const addFav = (newFav) => {
     setFavesArray([...favesArray, newFav]);
@@ -45,8 +41,8 @@ const App = () => {
     // alert(`Photo ${rmId} is no longer in your favorites.`);
   };
   
-  const favHandlers = { toggleFav, addFav, removeFav }
-  const faves = {favesArray, favHandlers, favourited}
+  const favHandlers = { addFav, removeFav }
+  const faves = {favesArray, favHandlers}
 
   return (
     <div className="App">
