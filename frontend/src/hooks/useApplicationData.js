@@ -1,35 +1,53 @@
 import App from 'App';
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import topics from "../mocks/topics";
 import photos from "../mocks/photos";
 
-export const useApplicationData = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
+const baseState = {
+  isModalOpen: false,
+  selectedPhoto: null,
+  favesArray: [],
+}
+const alterState = (state, action) => {
+  const actionHandlers = {
+    toggleModal:{
+      ...state,
+      isModalOpen: action.payload.isModalOpen,
+      selectedPhoto: action.payload.selectedPhoto
+    },
+    favAdd: {
+      ...state,
+      favesArray: [...state.favesArray, action.payload.newFav]
+    },
+    favRemove: {
+      favesArray: state.favesArray.filter(id => id !== action.payload.rmId)
+    }
+  }
+  return actionHandlers[action.type] || state;
+}
 
+export const useApplicationData = () => {
+  const [state, dispatch] = useReducer(alterState, baseState)
   const modalToggle = (photo) => {
     if (photo) {
-      setSelectedPhoto(photo);
-      setModalOpen(true);
+      dispatch({type:'toggleModal', payload: {isModalOpen: true, selectedPhoto: photo } });
     } else {
-      setSelectedPhoto(null);
-      setModalOpen(false);
+      dispatch({type:'toggleModal', payload: {isModalOpen: false, selectedPhoto: null } });
     }
   };
 
-  const [favesArray, setFavesArray] = useState([]);
   const addFav = (newFav) => {
-    setFavesArray([...favesArray, newFav]);
+    dispatch({type: 'favAdd', payload: {newFav}})
   };
-
+  
   const removeFav = (rmId) => {
-    setFavesArray(favesArray.filter(item => item !== rmId));
+    dispatch({type: 'favRemove', payload: {rmId}})
   };
 
   const favHandlers = { addFav, removeFav };
   const data = { photos, topics };
-  const modality = { isModalOpen, selectedPhoto, modalToggle };
-  const faves = { favesArray, favHandlers };
+  const modality = { ...state, modalToggle };
+  const faves = { favesArray: state.favesArray, favHandlers };
 
   return {data, modality, faves}
 };

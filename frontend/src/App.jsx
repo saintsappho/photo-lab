@@ -6,7 +6,7 @@ import { useApplicationData } from 'hooks/useApplicationData';
 
 const App = () => {
   const { data, modality, faves } = useApplicationData();
-  const {isModalOpen} = modality
+  const { isModalOpen } = modality
   const { photos } = data
 
   return (
