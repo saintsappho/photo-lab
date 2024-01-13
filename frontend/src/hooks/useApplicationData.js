@@ -8,22 +8,26 @@ const baseState = {
   selectedPhoto: null,
   favesArray: [],
 }
-const alterState = (state, action) => {
-  const actionHandlers = {
+const alterState = (state, task) => {
+  const taskHandlers = {
     toggleModal:{
       ...state,
-      isModalOpen: action.payload.isModalOpen,
-      selectedPhoto: action.payload.selectedPhoto
+      isModalOpen: task.payload.isModalOpen,
+      selectedPhoto: task.payload.selectedPhoto
     },
     favAdd: {
       ...state,
-      favesArray: [...state.favesArray, action.payload.newFav]
+      favesArray: [...state.favesArray, task.payload.newFav]
     },
     favRemove: {
-      favesArray: state.favesArray.filter(id => id !== action.payload.rmId)
+      ...state,
+      favesArray: state.favesArray.filter(id => id !== task.payload.rmId)
+    }, 
+    default: () => {
+      throw new Error(`Unhandled action type: ${action.type}`);
     }
   }
-  return actionHandlers[action.type] || state;
+  return taskHandlers[task.type] || state;
 }
 
 export const useApplicationData = () => {
