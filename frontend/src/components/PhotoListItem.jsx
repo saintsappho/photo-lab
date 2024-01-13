@@ -1,17 +1,16 @@
 import React, { useCallback, useState } from 'react';
 import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
+import PhotoDetailsModal from "../routes/PhotoDetailsModal";
 
 const PhotoListItem = (props) => {
-  const { photos, faves } = props
+  const { photos, faves, modality } = props
   const { urls, user, id, location } = photos;
   const { city, country } = location;
   const { regular } = urls;
   const { profile, username } = user;
-
-  const [favourited, setFavourited] = useState(false);
-  
-
+  const { isModalOpen, modalToggle } = modality
+  const [ favourited, setFavourited ] = useState(false);
   const toggleFav = () => {
     setFavourited((prev) => !prev);
   }
@@ -19,7 +18,7 @@ const PhotoListItem = (props) => {
   return (
     <article className="photo-list__item" key={"photo" + id}>
       <PhotoFavButton faves={faves} onToggleFavourite={toggleFav} isFav={favourited} id={id} />
-      <img className="photo-list__image" src={regular} alt={`Photo ${id}: Location ${city}, ${country}`} />
+      <img onClick={()=> {modalToggle(photos)}} className="photo-list__image" src={regular} alt={`Photo ${id}: Location ${city}, ${country}`} />
       <div className="photo-list__user-details">
         <img className="photo-list__user-profile" key={username + id} src={profile} alt={`${username}'s profile`} />
         <div className="photo-list__user-info">
@@ -27,6 +26,7 @@ const PhotoListItem = (props) => {
           <div className="photo-list__user-location"> {city}, {country}</div>
         </div>
       </div>
+      {isModalOpen && <PhotoDetailsModal photos={photos} faves={faves} toggleFav={toggleFav} favourited={favourited} modality={modality}/>}
     </article>
   );
 };
