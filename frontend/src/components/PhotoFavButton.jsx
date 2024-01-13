@@ -3,20 +3,19 @@ import React from 'react';
 import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
-
 function PhotoFavButton(props) {
-  const { toggleFav, id,  isFav, faves} = props;
-  const { favHandlers } = faves
+  const { id,  isFav, faves} = props;
+  const { favHandlers, favesArray } = faves
   const { addFav, removeFav } = favHandlers
   const handleClick = () => {
-    toggleFav(id);
-    isFav ? removeFav(id) : addFav(id);
+    !!favesArray.includes(id) ? removeFav(id) : addFav(id);
   }
-
+  const selected = (!!favesArray.includes(id))
+  console.log(favesArray)
   return (
     <div className="photo-list__fav-icon">
-      <div onClick={handleClick} className={`photo-list__fav-icon-svg ${isFav ? 'favorited' : ''} ${id}`}>
-        {<FavIcon selected={isFav}/>}
+      <div onClick={handleClick} className={`photo-list__fav-icon-svg ${id}`}>
+        {<FavIcon selected={selected}/>}
       </div>
     </div>
   );
