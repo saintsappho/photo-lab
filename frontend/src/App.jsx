@@ -3,12 +3,16 @@ import './App.scss';
 import HomeRoute from 'routes/HomeRoute';
 import topics from "./mocks/topics";
 import photos from "./mocks/photos";
+import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
   const data = {photos, topics}
 
+  /////////////////////////////////////////////////////////////////
+  /////                    modality                              /////
+  /////////////////////////////////////////////////////////////////
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const modalToggle = (photo) => {
@@ -22,9 +26,32 @@ const App = () => {
   }
   const modality = {isModalOpen, selectedPhoto,  modalToggle}
 
+/////////////////////////////////////////////////////////////////
+/////                    faves                              /////
+/////////////////////////////////////////////////////////////////
+  const [ favesArray, setFavesArray ] = useState([]);
+  const [ favourited, setFavourited ] = useState(false);
+  // set fave as state
+  const toggleFav = () => {
+    setFavourited((prev) => !prev);
+  }
+  // Functions to add/remove favorites in an array
+  const addFav = (newFav) => {
+    setFavesArray([...favesArray, newFav]);
+    // alert(`Photo ${newFave} has been added to favorites!`);
+  };
+  const removeFav = (rmId) => {
+    setFavesArray(favesArray.filter(item => item !== rmId));
+    // alert(`Photo ${rmId} is no longer in your favorites.`);
+  };
+  
+  const favHandlers = { toggleFav, addFav, removeFav }
+  const faves = {favesArray, favHandlers, favourited}
+
   return (
     <div className="App">
-      <HomeRoute data={data} modality={modality}/>
+      <HomeRoute faves={faves} data={data} modality={modality}/>
+      {isModalOpen && <PhotoDetailsModal photos={selectedPhoto} faves={faves} toggleFav={toggleFav} favourited={favourited} modality={modality}/>}
     </div>
   );
 };

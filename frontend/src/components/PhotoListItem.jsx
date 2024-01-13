@@ -10,10 +10,8 @@ const PhotoListItem = (props) => {
   const { regular } = urls;
   const { profile, username } = user;
   const { isModalOpen, modalToggle } = modality
-  const [ favourited, setFavourited ] = useState(false);
-  const toggleFav = () => {
-    setFavourited((prev) => !prev);
-  }
+  const { favHandlers, favourited } = faves
+  const { toggleFav } = favHandlers
 
   return (
     <article className="photo-list__item" key={"photo" + id}>

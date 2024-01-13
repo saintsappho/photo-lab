@@ -4,6 +4,7 @@ import "../styles/PhotoList.scss";
 
 const PhotoList = (props) => {
   const {photos, faves, modality} = props
+  console.log("faves: ", faves)
   return (
     <ul className="photo-list">
       {photos.map(image => (
