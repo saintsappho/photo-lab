@@ -5,7 +5,7 @@ import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoFavButton from '../components/PhotoFavButton';
 
 const PhotoDetailsModal = (props) => {
-  const { photos, modality, faves, toggleFav, favourited } = props;
+  const { photos, modality, faves, /*toggleFav,*/ favourited } = props;
   const { modalToggle, isModalOpen, selectedPhoto } = modality;
   const { urls, user, location } = photos;
   const { city, country } = location;
@@ -21,7 +21,7 @@ const PhotoDetailsModal = (props) => {
         </button>
 
         {/*the <3 button*/}
-        <PhotoFavButton faves={faves} onToggleFavourite={toggleFav} isFav={favourited} id={id} />
+        {/* <PhotoFavButton faves={faves} onToggleFavourite={toggleFav} isFav={favourited} id={id} /> */}
       </div>
 
 
