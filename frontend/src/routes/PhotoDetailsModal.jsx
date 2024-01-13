@@ -14,6 +14,7 @@ const PhotoDetailsModal = (props) => {
   const { profile, username } = user;
   const id = selectedPhoto;
   let similar = allPhotos.filter(photo => photo.id !== selectedPhoto.id)
+  similar = similar.filter(photo => (photo.location.city == selectedPhoto.location.city) || photo.user.name == selectedPhoto.user.name )
 
   return (
     <div className="photo-details-modal">
