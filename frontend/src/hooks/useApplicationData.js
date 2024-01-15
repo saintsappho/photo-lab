@@ -1,16 +1,20 @@
 import App from 'App';
-import React, { useState, useReducer } from 'react';
-import topics from "../mocks/topics";
-import photos from "../mocks/photos";
+import React, { useState, useReducer, useEffect } from 'react';
 
-const baseState = {
-  isModalOpen: false,
-  selectedPhoto: null,
-  favesArray: [],
-}
 const alterState = (state, task) => {
+
+  if (task.type === "setPhotos") {
+    const photos = task.payload;
+    return { ...state, photos };
+  }
+  if (task.type === "setTopics") {
+    const topics = task.payload;
+    return { ...state, topics };
+  }
+
+
   const taskHandlers = {
-    toggleModal:{
+    setModal: {
       ...state,
       isModalOpen: task.payload.isModalOpen,
       selectedPhoto: task.payload.selectedPhoto
@@ -22,36 +26,65 @@ const alterState = (state, task) => {
     favRemove: {
       ...state,
       favesArray: state.favesArray.filter(id => id !== task.payload.rmId)
-    }, 
-    default: () => {
-      throw new Error(`Unhandled action type: ${action.type}`);
     }
-  }
+  };
   return taskHandlers[task.type] || state;
-}
+};
 
 export const useApplicationData = () => {
-  const [state, dispatch] = useReducer(alterState, baseState)
-  const modalToggle = (photo) => {
-    if (photo) {
-      dispatch({type:'toggleModal', payload: {isModalOpen: true, selectedPhoto: photo } });
-    } else {
-      dispatch({type:'toggleModal', payload: {isModalOpen: false, selectedPhoto: null } });
-    }
+  const initialState = {
+    isModalOpen: false,
+    selectedPhoto: null,
+    favesArray: [],
+    photos: [],
+    topics: [],
+  };
+  const [state, dispatch] = useReducer(alterState, initialState);
+
+  useEffect(() => {
+    Promise.all([
+      fetch("/api/photos"),
+      fetch("/api/topics")])
+      
+      .then((responses) => {
+        if (!responses[0].ok || !responses[1].ok) {
+          console.error(`HTTP error! status: ${responses[0].status} || ${responses[1].status}`);
+        }
+        return responses;
+      })
+      .then((data) => {
+        data[0].json()
+        .then((photos)=>{
+          dispatch({ type: "setPhotos", payload: photos });
+        }) 
+        data[1].json()
+        .then((topics)=>{
+          dispatch({ type: "setTopics", payload: topics });
+        })
+      })
+      .catch((error) => {
+        console.error("Fetching photos failed: ", error);
+        console.error("Fetching topics failed: ", error);
+      });
+  }, []);
+
+
+  const toggleModal = (photo) => {
+    dispatch({ type: 'setModal', payload: { isModalOpen: photo ? true : false, selectedPhoto: photo } });
   };
 
+
   const addFav = (newFav) => {
-    dispatch({type: 'favAdd', payload: {newFav}})
+    dispatch({ type: 'favAdd', payload: { newFav } });
   };
-  
+
   const removeFav = (rmId) => {
-    dispatch({type: 'favRemove', payload: {rmId}})
+    dispatch({ type: 'favRemove', payload: { rmId } });
   };
 
   const favHandlers = { addFav, removeFav };
-  const data = { photos, topics };
-  const modality = { ...state, modalToggle };
+  const data = { photos: state.photos, topics: state.topics };
+  const modality = { ...state, modalToggle: toggleModal };
   const faves = { favesArray: state.favesArray, favHandlers };
-
-  return {data, modality, faves}
+  return { data, modality, faves };
 };
