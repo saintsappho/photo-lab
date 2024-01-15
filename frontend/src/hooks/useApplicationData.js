@@ -11,6 +11,10 @@ const alterState = (state, task) => {
     const topics = task.payload;
     return { ...state, topics };
   }
+  if (task.type === "setPhotosByTopic") {
+    const photosByTopic = task.payload;
+    return { ...state, photosByTopic };
+  }
 
 
   const taskHandlers = {
@@ -38,6 +42,7 @@ export const useApplicationData = () => {
     favesArray: [],
     photos: [],
     topics: [],
+    photosByTopic: []
   };
   const [state, dispatch] = useReducer(alterState, initialState);
 
@@ -68,6 +73,21 @@ export const useApplicationData = () => {
       });
   }, []);
 
+  const fetchPhotosByTopic = (topicId) => {
+    fetch(`/api/topics/photos/${topicId}`)
+    .then(response => {
+      if (!response.ok ) {
+        console.error(`HTTP error! status: ${response.status}`);
+      }
+      return response;  
+    })
+    .then((data) => {
+      data.json()
+      .then((photos)=>{
+      dispatch({ type: "setPhotos", payload: photos });
+     })
+    })
+  }
 
   const toggleModal = (photo) => {
     dispatch({ type: 'setModal', payload: { isModalOpen: photo ? true : false, selectedPhoto: photo } });
@@ -86,5 +106,5 @@ export const useApplicationData = () => {
   const data = { photos: state.photos, topics: state.topics };
   const modality = { ...state, modalToggle: toggleModal };
   const faves = { favesArray: state.favesArray, favHandlers };
-  return { data, modality, faves };
+  return { data, modality, faves, fetchPhotosByTopic };
 };

@@ -6,12 +6,12 @@ import PhotoDetailsModal from './PhotoDetailsModal';
 
 
 const HomeRoute = (props) => {
-  const {modality, faves} = props
+  const {modality, faves, fetchPhotosByTopic} = props
   const {photos, topics} = props.data
  
   return (
     <div className="home-route">
-      <TopNavigationBar topics={topics} faves={faves} />
+      <TopNavigationBar topics={topics} faves={faves} fetchPhotosByTopic={fetchPhotosByTopic}/>
       <PhotoList photos={photos} faves={faves} modality={modality}/>
       
     </div>

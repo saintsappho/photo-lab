@@ -3,9 +3,11 @@ import React from "react";
 import "../styles/TopicListItem.scss";
 
 const TopicListItem = (props) => {
-  const { id, slug, title } = props.topic
+  const { topic, fetchPhotosByTopic } = props
+  const { id, slug, title, } = topic
+
   return (
-    <div className="topic-list__item">
+    <div onClick={()=> {fetchPhotosByTopic(id)}} className="topic-list__item">
       <span key={id} className={slug}>{title}</span>
     </div>
   );

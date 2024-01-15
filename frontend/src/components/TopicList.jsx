@@ -3,13 +3,13 @@ import "../styles/TopicList.scss";
 import TopicListItem from "./TopicListItem";
 
 const TopicList = (props) => {
-  const {topics} = props
+  const { topics, fetchPhotosByTopic } = props
   
   return (
     <div className="top-nav-bar__topic-list">
       {topics.map(topic => (
         <span key={topic.id}>
-          <TopicListItem topic={topic}/>
+          <TopicListItem topic={topic} fetchPhotosByTopic={fetchPhotosByTopic}/>
         </span>
       ))}
     </div>
