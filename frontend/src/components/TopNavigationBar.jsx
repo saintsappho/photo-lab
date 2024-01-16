@@ -18,7 +18,6 @@ const TopNavigationBar = (props) => {
       setShowTopic(false);
       setShowFavorites(false)
     };
-    return;
   };
   return (
     <div className="top-nav-bar">
