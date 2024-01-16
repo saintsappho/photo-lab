@@ -5,15 +5,15 @@ The PhotoLabs project for the Lighthouse Labs Web Development React course progr
 
 - a simple SinglePageApp(SPA):
   - functionality for favouriting photos:
-  - ![a favourited Photo and an Unfavourited Photo](./docs/fave-example.png)
+   ![a favourited Photo and an Unfavourited Photo](./docs/fave-example.png)
     - favourited photos are added to a global-state array and faves persist across components.
-    - ![A Favourited image shows in modal and in photolist components ](./docs/cross-component-favourite.png)
+     ![A Favourited image shows in modal and in photolist components ](./docs/cross-component-favourite.png)
     - if the user has one or more favourited photos, the fave button in nav has a small visible notification. ![Fave icon with Notification in Nav Bar](./docs/fave-notif.png)
   - navigation functionality:
     - the user can always return to "Home" where no sorting is done by clicking the logo in the navbar.
-    - ![Logo, functional Home Button](./docs/logo-nav.png)
+     ![Logo, functional Home Button](./docs/logo-nav.png)
     - the user can display photos sorted by faves.
-    - ![Photos sorted by faves](./docs/faves.png)
+     ![Photos sorted by faves](./docs/faves.png)
       - user can further sort faves by topic by clicking on the topics in the nav bar.
       - user can exit faves by returning "Home".
     - the user can display photos sorted by topics.
