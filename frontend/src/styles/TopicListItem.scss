@@ -3,6 +3,10 @@
   margin-left: 24px;
 }
 
+.topic-list__item.active-class {
+  text-decoration: overline;
+}
+
 .topic-list__item span {
   font-size: 18px;
   text-decoration: none;

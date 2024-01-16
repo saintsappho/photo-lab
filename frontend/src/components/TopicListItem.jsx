@@ -3,17 +3,13 @@ import React, { useState } from "react";
 import "../styles/TopicListItem.scss";
 
 const TopicListItem = (props) => {
-  const { topic, topicToggle, fetchPhotosById } = props;
+  const { topic, handleClick, thisTopic } = props;
   const { id, slug, title, } = topic;
- 
-  const isActive = !topicToggle;
-
-  // Construct the className based on isActive
-  const itemClassName = isActive ? 'active' : '';
+  let activeClass = thisTopic.id === id ? 'active-class' : ''
 
   return (
-    <div className="topic-list__item" onClick={() => { topicToggle(id); }}>
-      <span key={id} className={`${slug} ${itemClassName}`}>{title}</span>
+    <div className={`topic-list__item ${activeClass}`} onClick={() => { handleClick(thisTopic.isActive && thisTopic.id === id ? null : id); }}>
+      <span key={id} className={`${slug}`}>{title}</span>
     </div>
   );
 };

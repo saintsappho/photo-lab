@@ -7,15 +7,13 @@ import TopicList from './TopicList';
 const TopNavigationBar = (props) => {
   const { topics, faves, fetchPhotosByTopic, setShowFavorites } = props 
   const { favesArray } = faves
-  const [showTopic, setShowTopic] = useState(false);
-
+ 
   const topicToggle = (id) => {
-    if (!showTopic) {
+    if (id){
       fetchPhotosByTopic(id);
-      setShowTopic(true);
-    } else {
+    }
+    if (!id || id === null) {
       fetchPhotosByTopic(null);
-      setShowTopic(false);
       setShowFavorites(false)
     };
   };
