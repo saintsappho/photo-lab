@@ -1,5 +1,6 @@
 .App {
-  margin: 24px;
+  background-color: #ecdcfa;
+  min-height: 100%;
 }
 
 // * {
@@ -39,4 +40,23 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+body {
+  /* Styles for the body element, including the scrollbar */
+  overflow: overlay; /* Use 'overlay' to allow the scrollbar to overlap content */
+}
+
+/* Styles for the scrollbar */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* Color of the scrollbar thumb */
+  border-radius: 8px; /* Radius of the scrollbar thumb */
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.1); /* Color of the scrollbar track */
 }

@@ -1,15 +1,15 @@
 .photo-details-modal {
   background-color: white;
   box-shadow: 0 0 0 50vmax rgba(0,0,0,.5);
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -40%);
+  position: fixed;
+  top: 50%; /* Adjust this value to position the modal vertically */
+  left: 50%; /* Adjust this value to position the modal horizontally */
+  transform: translate(-50%, -50%);
   height: 80%;
   width: 55%;
   overflow-y: scroll;
   border-radius: 12px;
-  
+  z-index: 1000;
 }
 
 .photo-details-modal__close-button {
@@ -85,4 +85,17 @@
 .username {
   font-weight: bold;
   font-size: larger;
+}
+
+.photo-details-modal::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+.photo-details-modal::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* Color of the scrollbar thumb */
+  border-radius: 8px; /* Radius of the scrollbar thumb */
+}
+
+.photo-details-modal::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.1); /* Color of the scrollbar track */
 }
