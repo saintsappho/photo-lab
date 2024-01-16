@@ -6,16 +6,17 @@ import PhotoList from 'components/PhotoList';
 
 const PhotoDetailsModal = ({ allPhotos, modality, faves }) => {
   const { modalToggle, selectedPhoto } = modality;
-  const { urls, user, location } = selectedPhoto;
+  const { urls, user, location, id } = selectedPhoto;
   const { city, country } = location;
-  const { regular } = urls; // Fix: Destructure 'urls' directly
-  const { profile, username, id } = user;
+  const { regular } = urls; 
+  const { profile, username } = user;
 
   const similarPhotos = allPhotos.filter(photo =>
     photo.id !== selectedPhoto.id &&
     (photo.location.city === selectedPhoto.location.city || photo.user.name === selectedPhoto.user.name)
   );
 
+  
   return (
     <div className="photo-details-modal">
       <div className='photo-details-modal__top-bar'>
@@ -23,7 +24,6 @@ const PhotoDetailsModal = ({ allPhotos, modality, faves }) => {
           <img src={closeSymbol} alt="close symbol" />
         </button>
       </div>
-
       <div className='photo-details-modal__header'>
         <div className="photo-details-modal__images">
           <PhotoFavButton faves={faves} id={Number(id)} />

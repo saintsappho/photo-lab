@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "../styles/TopicListItem.scss";
 
 const TopicListItem = (props) => {
-  const { topic, fetchPhotosByTopic } = props
-  const { id, slug, title, } = topic
+  const { topic, topicToggle } = props;
+  const { id, slug, title, } = topic;
+ 
 
   return (
-    <div onClick={()=> {fetchPhotosByTopic(id)}} className="topic-list__item">
+    <div onClick={() => { topicToggle(id); }} className="topic-list__item">
       <span key={id} className={slug}>{title}</span>
     </div>
   );

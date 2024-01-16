@@ -74,20 +74,26 @@ export const useApplicationData = () => {
   }, []);
 
   const fetchPhotosByTopic = (topicId) => {
-    fetch(`/api/topics/photos/${topicId}`)
-    .then(response => {
-      if (!response.ok ) {
-        console.error(`HTTP error! status: ${response.status}`);
-      }
-      return response;  
-    })
-    .then((data) => {
-      data.json()
-      .then((photos)=>{
-      dispatch({ type: "setPhotos", payload: photos });
-     })
-    })
-  }
+    let apiUrl = `/api/photos`;
+  
+    if (topicId !== null) {
+      apiUrl = `/api/topics/photos/${topicId}`;
+    }
+  
+    return fetch(apiUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((photos) => {
+        dispatch({ type: "setPhotos", payload: photos });
+      })
+      .catch((error) => {
+        console.error("Fetching photos failed: ", error);
+      });
+  };
 
   const toggleModal = (photo) => {
     dispatch({ type: 'setModal', payload: { isModalOpen: photo ? true : false, selectedPhoto: photo } });
